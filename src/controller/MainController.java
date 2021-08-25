@@ -7,13 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import model.Inventory;
 import model.Part;
@@ -21,6 +16,7 @@ import model.Product;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -33,6 +29,12 @@ public class MainController implements Initializable {
     public static Part getPartModify () {
         return partModify;
     }
+
+    private static Product productModify;
+
+    public static Product getProductModify () {return productModify;}
+
+
 
     @FXML
     private TableView<Part> partTableView;
@@ -72,24 +74,42 @@ public class MainController implements Initializable {
 
     @FXML
     void onActionDeletePart(ActionEvent event) {
-        ObservableList<Part> selectedRows, allParts;
-        allParts = partTableView.getItems();
-        selectedRows = partTableView.getSelectionModel().getSelectedItems();
+        Part selectedPart = partTableView.getSelectionModel().getSelectedItem();
 
-        for (Part part: selectedRows) {
-            allParts.remove(part);
+        if (selectedPart == null) {
+            displayAlert(3);
+        } else {
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Alert");
+            alert.setContentText("Are you sure you want to delete the selected part?");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                Inventory.deletePart(selectedPart);
+            }
         }
     }
 
     @FXML
     void onActionDeleteProduct(ActionEvent event) {
-        ObservableList<Product> selectedRows, allProducts;
-        allProducts = productTableView.getItems();
-        selectedRows = productTableView.getSelectionModel().getSelectedItems();
 
-        for (Product product: selectedRows) {
-            allProducts.remove(product);
-        }
+         Product selectedProduct = productTableView.getSelectionModel().getSelectedItem();
+
+         if (selectedProduct == null) {
+             displayAlert(4);
+         } else {
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Alert");
+            alert.setContentText("Are you sure you want to delete the selected product?");
+            Optional<ButtonType> result = alert.showAndWait();
+
+         if (result.isPresent() && result.get() == ButtonType.OK) {
+                Inventory.deleteProduct(selectedProduct);
+            }
+         }
+
     }
 
     @FXML
@@ -115,11 +135,15 @@ public class MainController implements Initializable {
 
         partModify = partTableView.getSelectionModel().getSelectedItem();
 
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/ModifyPart.fxml"));
-        scene.setStyle("-fx-font-family: 'SansSerif';");
-        stage.setScene(new Scene(scene));
-        stage.show();
+        if (partModify == null) {
+            displayAlert(3);
+        } else {
+            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/view/ModifyPart.fxml"));
+            scene.setStyle("-fx-font-family: 'SansSerif';");
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
 
         }
 
@@ -127,11 +151,17 @@ public class MainController implements Initializable {
     @FXML
     void onActionDisplayModifyProduct(ActionEvent event) throws IOException {
 
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/ModifyProduct.fxml"));
-        scene.setStyle("-fx-font-family: 'SansSerif';");
-        stage.setScene(new Scene(scene));
-        stage.show();
+        productModify = productTableView.getSelectionModel().getSelectedItem();
+
+        if (productModify == null) {
+            displayAlert(4);
+        } else {
+            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/view/ModifyProduct.fxml"));
+            scene.setStyle("-fx-font-family: 'SansSerif';");
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
     }
 
     @FXML
@@ -140,22 +170,65 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void getPartsHandler(KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
-            String partName = queryPartsTF.getText();
-            ObservableList<Part> parts = Inventory.lookupPart(partName);
-            partTableView.setItems(parts);
-            queryPartsTF.setText("");
-        }
+    void searchPartsHandler(ActionEvent event) {
+            try {
+                Part foundPart = Inventory.lookupPart(Integer.parseInt(queryPartsTF.getText()));
+                partTableView.getSelectionModel().select(foundPart);
+            } catch (Exception e) {
+                String partName = queryPartsTF.getText();
+                ObservableList<Part> parts = Inventory.lookupPart(partName);
+                partTableView.setItems(parts);
+                queryPartsTF.setText("");
+            }
+
     }
 
     @FXML
-    void getProductsHandler(KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
-            String product = queryProductsTF.getText();
-            ObservableList<Product> products = Inventory.lookupProduct(product);
-            productTableView.setItems(products);
-            queryProductsTF.setText("");
+    void searchProductsHandler(ActionEvent event) {
+            try {
+                Product foundProduct = Inventory.lookupProduct(Integer.parseInt(queryProductsTF.getText()));
+                productTableView.getSelectionModel().select(foundProduct);
+            } catch (Exception e) {
+                String productName = queryProductsTF.getText();
+                ObservableList<Product> products = Inventory.lookupProduct(productName);
+                productTableView.setItems(products);
+                queryProductsTF.setText("");
+            }
+
+    }
+
+    private void displayAlert(int alertType) {
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alertError = new Alert(Alert.AlertType.ERROR);
+
+        switch (alertType) {
+            case 1:
+                alert.setTitle("Information");
+                alert.setHeaderText("Part not found");
+                alert.showAndWait();
+                break;
+            case 2:
+                alert.setTitle("Information");
+                alert.setHeaderText("Product not found");
+                alert.showAndWait();
+                break;
+            case 3:
+                alertError.setTitle("Error");
+                alertError.setHeaderText("No part selected");
+                alertError.showAndWait();
+                break;
+            case 4:
+                alertError.setTitle("Error");
+                alertError.setHeaderText("No product selected");
+                alertError.showAndWait();
+                break;
+            case 5:
+                alertError.setTitle("Error");
+                alertError.setHeaderText("Parts Associated");
+                alertError.setContentText("All associated parts must be removed from product before proceeding with deletion.");
+                alertError.showAndWait();
+                break;
         }
     }
 

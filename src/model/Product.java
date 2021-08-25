@@ -2,6 +2,8 @@ package model;
 
 public class Product {
 
+    public static int productIdGenerator =+1;
+
     private int id;
     private String name;
     private double price;
@@ -10,7 +12,7 @@ public class Product {
     private int max;
 
     public Product(int id, String name, double price, int stock, int min, int max){
-        this.id = id;
+        this.id = id + productIdGenerator;
         this.name = name;
         this.price = price;
         this.stock = stock;

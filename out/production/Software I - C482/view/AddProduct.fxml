@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1130.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddProductController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1130.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddProductController">
     <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="705.0" layoutX="14.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="1104.0" />
         <Label layoutX="72.0" layoutY="66.0" text="Add Product">
@@ -37,28 +37,24 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <TextField GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                        <TextField fx:id="productMaxTxt" GridPane.columnIndex="3" GridPane.rowIndex="4" />
                         <Label text="ID" />
-                        <TextField GridPane.columnIndex="1" />
+                        <TextField fx:id="productIdTxt" disable="true" editable="false" promptText="Auto Gen - Disabled" GridPane.columnIndex="1" />
                         <Label text="Name" GridPane.rowIndex="1" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="productNameTxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label text="Inventory" GridPane.rowIndex="2" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="productStockTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Price/Cost" GridPane.rowIndex="3" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="productPriceTxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label text="Min" GridPane.rowIndex="4" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="productMinTxt" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label text="Max" GridPane.columnIndex="2" GridPane.rowIndex="4">
                             <padding>
                                 <Insets left="20.0" />
                             </padding>
                         </Label>
-                        <Label text="Machine ID" GridPane.rowIndex="5" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
                     </children>
                 </GridPane>
             </children>
@@ -68,17 +64,17 @@
         <TableView fx:id="partTableView" layoutX="641.0" layoutY="76.0" prefHeight="250.0" prefWidth="435.0">
             <columns>
                 <TableColumn fx:id="partIdCol" prefWidth="54.0" text="Part ID" />
-                <TableColumn fx:id="partStockCol" prefWidth="105.0" text="Inventory Level" />
-                <TableColumn fx:id="partPriceCol" prefWidth="119.0" text="Price / Cost per Unit" />
-                <TableColumn fx:id="partNameCol" prefWidth="155.0" text="Part Name" />
+                <TableColumn fx:id="partNameCol" prefWidth="154.0" text="Part Name" />
+                <TableColumn fx:id="partStockCol" prefWidth="100.0" text="Inventory Level" />
+                <TableColumn fx:id="partPriceCol" prefWidth="125.0" text="Price / Cost per Unit" />
             </columns>
         </TableView>
       <TableView fx:id="assocPartTableView" layoutX="641.0" layoutY="376.0" prefHeight="250.0" prefWidth="435.0">
          <columns>
-            <TableColumn fx:id="partIdCol" prefWidth="54.0" text="Part ID" />
-            <TableColumn fx:id="partNameColumn1" prefWidth="155.0" text="Part Name" />
-            <TableColumn fx:id="partStockColumn1" prefWidth="105.0" text="Inventory Level" />
-            <TableColumn fx:id="partPriceColumn1" prefWidth="119.0" text="Price / Cost per Unit" />
+            <TableColumn fx:id="assocPartIdCol" prefWidth="54.0" text="Part ID" />
+            <TableColumn fx:id="assocPartNameCol" prefWidth="155.0" text="Part Name" />
+            <TableColumn fx:id="assocPartStockCol" prefWidth="105.0" text="Inventory Level" />
+            <TableColumn fx:id="assocPartPriceCol" prefWidth="119.0" text="Price / Cost per Unit" />
          </columns>
       </TableView>
       <TextField layoutX="881.0" layoutY="40.0" prefHeight="26.0" prefWidth="194.0" promptText="Search by Part ID or Name" />

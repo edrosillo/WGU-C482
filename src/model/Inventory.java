@@ -4,6 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Inventory {
+    public static int partId;
+
+    public static int productId;
 
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
 
@@ -23,10 +26,11 @@ public class Inventory {
         for (Part part : allParts) {
             if (part.getId() == partId) {
                 partSearch = part;
+                return partSearch;
             }
         }
 
-        return partSearch;
+        return null;
     }
 
     public static Product lookupProduct(int productId) {
@@ -56,7 +60,7 @@ public class Inventory {
         ObservableList<Product> productSearch = FXCollections.observableArrayList();
         ObservableList<Product> allProducts = Inventory.getAllProducts();
         for (Product product : allProducts) {
-            if (product.getName().equals(productName)) {
+            if (product.getName().toLowerCase().contains(productName.toLowerCase())) {
                 productSearch.add(product);
             }
         }
@@ -72,6 +76,30 @@ public class Inventory {
     public static void updateProduct (int index, Product selectedProduct) {
 
         allProducts.set(index, selectedProduct);
+    }
+
+    public static boolean deletePart (Part selectedPart) {
+
+        if (allParts.contains(selectedPart)) {
+            allParts.remove(selectedPart);
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
+    public static boolean deleteProduct (Product selectedProduct) {
+
+        if (allParts.contains(selectedProduct)) {
+            allParts.remove(selectedProduct);
+            return true;
+        }
+        else {
+            return false;
+        }
+
     }
 
 

@@ -18,11 +18,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public static int getRandom(int max) { return (int)(Math.random()*(max))+1; }
-
     public static void main(String[] args) {
-
-        Part.partIdGenerator = getRandom(40) ;
 
         Part part1 = new Outsourced(1, "Utilty Arm", 250.99, 20, 1, 20,"Hondo's Droid Parts");
         Part part2 = new InHouse(2, "Holographic Projector", 625.00, 20, 4, 25,616);
@@ -30,6 +26,7 @@ public class Main extends Application {
         Part part4 = new InHouse(4, "Power Coupling", 330.00, 7, 4, 35,52);
         Part part5 = new Outsourced(5, "Vocabulator", 700.50, 10, 1, 10,"Jawa Scavengers");
 
+        Inventory.partId = 5;
         Inventory.addPart(part1);
         Inventory.addPart(part2);
         Inventory.addPart(part3);
@@ -41,6 +38,7 @@ public class Main extends Application {
         Product product3 = new Product(102, "BB Unit", 40000.00,10,6,20);
         Product product4 = new Product(103, "K2 Unit", 60000.00,12,6,25);
 
+        Inventory.productId = 103;
         Inventory.addProduct(product1);
         Inventory.addProduct(product2);
         Inventory.addProduct(product3);

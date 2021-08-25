@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import model.InHouse;
 import model.Outsourced;
 import model.Inventory;
+import model.Part;
 
 import java.io.IOException;
 import java.net.URL;
@@ -70,7 +71,7 @@ public class AddPartController implements Initializable {
         @FXML
         void onActionSavePart(ActionEvent event) throws IOException {
 
-            int id = 0; //Integer.parseInt(partIdTxt.getText());
+            int id = Integer.parseInt(partIdTxt.getText());
             String name = partNameTxt.getText();
             double price = Double.parseDouble(partPriceText.getText()) ;
             int stock = Integer.parseInt(partStockTxt.getText());
@@ -89,10 +90,7 @@ public class AddPartController implements Initializable {
                 companyName = partMachineIdTxt.getText();
                 Inventory.addPart(new Outsourced(id, name, price, stock, min, max, companyName));
             }
-
-            //Inventory.addPart(new InHouse(id, name, price, stock, min, max, machineId));
-            //Inventory.addPart(new Outsourced(id, name, price, stock, min, max, companyName));
-
+            Inventory.partId = id;
             stage = (Stage)((Button)event.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/main.fxml"));
             scene.setStyle("-fx-font-family: 'SansSerif';");
@@ -101,14 +99,84 @@ public class AddPartController implements Initializable {
 
         }
 
-        @FXML
-        void onActionOutsourced(ActionEvent event) {
-            changeLabel.setText("Company Name");
+
+    @FXML
+    void onActionOutsourced(ActionEvent event) {
+        changeLabel.setText("Company Name");
+    }
+
+
+
+    private boolean minMaxValid(int min, int max) {
+
+        boolean isValid = true;
+
+        if (min <= 0 || min >= max) {
+            isValid = false;
+            displayAlert(3);
         }
+        return isValid;
+    }
+
+
+    private boolean stockValid(int min, int max, int stock) {
+
+        boolean isValid = true;
+
+        if (stock < min || stock > max) {
+            isValid = false;
+            displayAlert(4);
+        }
+        return isValid;
+    }
+
+
+    private void displayAlert(int alertType) {
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+
+        switch (alertType) {
+            case 1:
+                alert.setTitle("Error");
+                alert.setHeaderText("Error Adding Part");
+                alert.setContentText("Form contains blank fields or invalid values.");
+                alert.showAndWait();
+                break;
+            case 2:
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid value for Machine ID");
+                alert.setContentText("Machine ID may only contain numbers.");
+                alert.showAndWait();
+                break;
+            case 3:
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid value for Min");
+                alert.setContentText("Min must be a number greater than 0 and less than Max.");
+                alert.showAndWait();
+                break;
+            case 4:
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid value for Inventory");
+                alert.setContentText("Inventory must be a number equal to or between Min and Max.");
+                alert.showAndWait();
+                break;
+            case 5:
+                alert.setTitle("Error");
+                alert.setHeaderText("Name Empty");
+                alert.setContentText("Name field can't be empty!");
+                alert.showAndWait();
+                break;
+        }
+    }
+
+
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+            int tempId = Inventory.partId+=1;
+        partIdTxt.setText(String.valueOf(tempId));
 
     }
 

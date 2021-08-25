@@ -70,7 +70,7 @@ public class ModifyPartController implements Initializable {
         stage.show();
     }
 
-    public void initData(Part part) {
+   /** public void initData(Part part) {
 
         selectedPart = part;
 
@@ -83,9 +83,13 @@ public class ModifyPartController implements Initializable {
 
 
     }
+    */
+
 
     @FXML
     void onActionSavePart(ActionEvent event) throws IOException {
+
+        int index = Inventory.getAllParts().indexOf(selectedPart);
 
         int id = 0;
         String name = partNameTxt.getText();
@@ -98,13 +102,14 @@ public class ModifyPartController implements Initializable {
 
         if (inHouseRBtn.isSelected()) {
             machineId = Integer.parseInt(partMachineIdTxt.getText());
-            Inventory.addPart(new InHouse(id, name, price, stock, min, max, machineId));
+            //Inventory.addPart(new InHouse(id, name, price, stock, min, max, machineId));
+            Inventory.updatePart(index,selectedPart);
 
         } else if (outsourcedRBtn.isSelected()) {
             companyName = partMachineIdTxt.getText();
-            Inventory.addPart(new Outsourced(id, name, price, stock, min, max, companyName));
+            //Inventory.addPart(new Outsourced(id, name, price, stock, min, max, companyName));
+            Inventory.updatePart(index,selectedPart);
         }
-
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/main.fxml"));
         scene.setStyle("-fx-font-family: 'SansSerif';");

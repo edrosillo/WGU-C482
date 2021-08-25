@@ -40,7 +40,7 @@
             <Button mnemonicParsing="false" onAction="#onActionDeletePart" prefWidth="60.0" text="Delete" />
          </children>
       </HBox>
-      <TextField fx:id="queryPartsTF" layoutX="253.0" layoutY="106.0" onKeyPressed="#getPartsHandler" prefHeight="26.0" prefWidth="225.0" promptText="Search by Part ID or Name" />
+      <TextField fx:id="queryPartsTF" layoutX="253.0" layoutY="106.0" onAction="#searchPartsHandler" prefHeight="26.0" prefWidth="225.0" promptText="Search by Part ID or Name" />
       <Label layoutX="517.0" layoutY="108.0" text="Products">
          <font>
             <Font name="SansSerif Bold" size="18.0" />
@@ -54,7 +54,7 @@
             <TableColumn fx:id="productPriceCol" prefWidth="119.0" text="Price / Cost per Unit" />
          </columns>
       </TableView>
-      <TextField fx:id="queryProductsTF" layoutX="726.0" layoutY="106.0" onKeyPressed="#getProductsHandler" prefHeight="26.0" prefWidth="225.0" promptText="Search by Product ID or Name" />
+      <TextField fx:id="queryProductsTF" layoutX="726.0" layoutY="106.0" onAction="#searchProductsHandler" prefHeight="26.0" prefWidth="225.0" promptText="Search by Product ID or Name" />
       <Button layoutX="897.0" layoutY="460.0" mnemonicParsing="false" onAction="#onActionExit" prefWidth="55.0" text="Exit" />
       <HBox alignment="CENTER_RIGHT" layoutX="712.0" layoutY="408.0" prefHeight="26.0" prefWidth="240.0" spacing="15.0">
          <children>

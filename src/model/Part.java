@@ -2,7 +2,7 @@ package model;
 
 public abstract class Part {
 
-    public static int partIdGenerator =+1;
+    //public static int partIdGenerator =+1;
 
     private int id;
     private String name;
@@ -13,7 +13,7 @@ public abstract class Part {
 
 
     public Part(int id, String name, double price, int stock, int min, int max){
-        this.id = id + partIdGenerator;
+        this.id = id;
         this.name = name;
         this.price = price;
         this.stock = stock;
