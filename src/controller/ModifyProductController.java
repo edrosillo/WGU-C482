@@ -11,20 +11,23 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import model.Inventory;
-import model.Part;
-import model.Product;
+import model.*;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ModifyProductController implements Initializable {
+
+    private Product selectedProduct;
+
     Stage stage;
     Parent scene;
 
     private ObservableList<Part> assocParts = FXCollections.observableArrayList();
 
+    @FXML
+    private TextField queryPartsTF;
 
     @FXML
     private TextField productMaxTxt;
@@ -107,6 +110,8 @@ public class ModifyProductController implements Initializable {
     @FXML
     void onActionSave(ActionEvent event) throws IOException {
 
+        int index = Inventory.getAllProducts().indexOf(selectedProduct);
+
         int id = Integer.parseInt(productIdTxt.getText());
         String name = productNameTxt.getText();
         double price = Double.parseDouble(productPriceTxt.getText()) ;
@@ -114,14 +119,59 @@ public class ModifyProductController implements Initializable {
         int min = Integer.parseInt(productMinTxt.getText());
         int max = Integer.parseInt(productMaxTxt.getText());
 
-        Inventory.addProduct(new Product(id, name, price, stock, min, max));
-        Inventory.productId = id;
+        selectedProduct.setId(id);
+        selectedProduct.setName(name);
+        selectedProduct.setPrice(price);
+        selectedProduct.setStock(stock);
+        selectedProduct.setPrice(price);
+        selectedProduct.setMin(min);
+        selectedProduct.setMax(max);
+
+        Inventory.updateProduct(index,selectedProduct);
+
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/main.fxml"));
         scene.setStyle("-fx-font-family: 'SansSerif';");
         stage.setScene(new Scene(scene));
         stage.show();
 
+    }
+
+    @FXML
+    void searchPartsHandler(ActionEvent event) {
+        try {
+            Part foundPart = Inventory.lookupPart(Integer.parseInt(queryPartsTF.getText()));
+            partTableView.getSelectionModel().select(foundPart);
+        } catch (Exception e) {
+            String partName = queryPartsTF.getText();
+            ObservableList<Part> parts = Inventory.lookupPart(partName);
+            partTableView.setItems(parts);
+            queryPartsTF.setText("");
+        }
+    }
+
+    private boolean minMaxValid(int min, int max) {
+
+        boolean isValid = true;
+
+        if (min <= 0 || min >= max) {
+            isValid = false;
+            displayAlert(3);
+        }
+
+        return isValid;
+    }
+
+    private boolean stockValid(int min, int max, int stock) {
+
+        boolean isValid = true;
+
+        if (stock < min || stock > max) {
+            isValid = false;
+            displayAlert(4);
+        }
+
+        return isValid;
     }
 
     private void displayAlert(int alertType) {
@@ -172,6 +222,10 @@ public class ModifyProductController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        selectedProduct = MainController.getProductModify();
+        assocParts = selectedProduct.getAllAssociatedParts();
+
+
         partTableView.setItems(Inventory.getAllParts());
 
         partIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -179,11 +233,20 @@ public class ModifyProductController implements Initializable {
         partPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
         partStockCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
 
+        assocPartTableView.setItems(assocParts);
 
         assocPartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         assocPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         assocPartStockCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         assocPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        productIdTxt.setText(String.valueOf(selectedProduct.getId()));
+        productNameTxt.setText(selectedProduct.getName());
+        productStockTxt.setText(String.valueOf(selectedProduct.getStock()));
+        productPriceTxt.setText(String.valueOf(selectedProduct.getPrice()));
+        productMinTxt.setText(String.valueOf(selectedProduct.getMax()));
+        productMaxTxt.setText(String.valueOf(selectedProduct.getMin()));
+
 
     }
 

@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1130.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddProductController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1130.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddProductController">
     <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="705.0" layoutX="14.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="1104.0" />
         <Label layoutX="72.0" layoutY="66.0" text="Add Product">
@@ -77,7 +77,7 @@
             <TableColumn fx:id="assocPartPriceCol" prefWidth="119.0" text="Price / Cost per Unit" />
          </columns>
       </TableView>
-      <TextField layoutX="881.0" layoutY="40.0" prefHeight="26.0" prefWidth="194.0" promptText="Search by Part ID or Name" />
+      <TextField fx:id="queryPartsTF" layoutX="881.0" layoutY="40.0" onAction="#searchPartsHandler" prefHeight="26.0" prefWidth="194.0" promptText="Search by Part ID or Name" />
       <Button layoutX="966.0" layoutY="680.0" mnemonicParsing="false" onAction="#onActionSave" text="Save" />
       <Button layoutX="1021.0" layoutY="680.0" mnemonicParsing="false" onAction="#onActionDisplayMain" text="Cancel" />
     </children>

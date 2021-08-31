@@ -34,11 +34,19 @@ public class Main extends Application {
         Inventory.addPart(part5);
 
         Product product1 = new Product(100, "R2 Unit", 20000.00,6,1,12);
+        product1.addAssociatedPart(part1);
+        product1.addAssociatedPart(part3);
         Product product2 = new Product(101, "R4 Unit", 25000.00,4,4,10);
+        product2.addAssociatedPart(part3);
+        product2.addAssociatedPart(part4);
         Product product3 = new Product(102, "BB Unit", 40000.00,10,6,20);
+        product3.addAssociatedPart(part1);
+        product3.addAssociatedPart(part4);
         Product product4 = new Product(103, "K2 Unit", 60000.00,12,6,25);
+        product4.addAssociatedPart(part2);
+        product4.addAssociatedPart(part5);
 
-        Inventory.productId = 103;
+        Inventory.productId = 104;
         Inventory.addProduct(product1);
         Inventory.addProduct(product2);
         Inventory.addProduct(product3);

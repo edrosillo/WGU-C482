@@ -70,51 +70,43 @@ public class ModifyPartController implements Initializable {
         stage.show();
     }
 
-   /** public void initData(Part part) {
-
-        selectedPart = part;
-
-        partIdTxt.setText(Integer.toString(selectedPart.getId()));
-        partNameTxt.setText(selectedPart.getName());
-        partPriceText.setText(Double.toString(selectedPart.getPrice()));
-        partStockTxt.setText(String.valueOf(selectedPart.getStock()));
-        partMinTxt.setText(Integer.toString(selectedPart.getMin()));
-        partMaxTxt.setText(Integer.toString(selectedPart.getMax()));
-
-
-    }
-    */
-
 
     @FXML
     void onActionSavePart(ActionEvent event) throws IOException {
 
-        int index = Inventory.getAllParts().indexOf(selectedPart);
+        try {
+            int index = Inventory.getAllParts().indexOf(selectedPart);
 
-        int id = 0;
-        String name = partNameTxt.getText();
-        double price = Double.parseDouble(partPriceText.getText()) ;
-        int stock = Integer.parseInt(partStockTxt.getText());
-        int min = Integer.parseInt(partMinTxt.getText());
-        int max = Integer.parseInt(partMaxTxt.getText());
-        int machineId;
-        String companyName;
+            int id = selectedPart.getId();
+            String name = partNameTxt.getText();
+            double price = Double.parseDouble(partPriceText.getText());
+            int stock = Integer.parseInt(partStockTxt.getText());
+            int min = Integer.parseInt(partMinTxt.getText());
+            int max = Integer.parseInt(partMaxTxt.getText());
+            int machineId;
+            String companyName;
 
-        if (inHouseRBtn.isSelected()) {
-            machineId = Integer.parseInt(partMachineIdTxt.getText());
-            //Inventory.addPart(new InHouse(id, name, price, stock, min, max, machineId));
-            Inventory.updatePart(index,selectedPart);
+            if (minMaxValid(min, max) && stockValid(min, max, stock)) {
+                if (inHouseRBtn.isSelected()) {
+                    machineId = Integer.parseInt(partMachineIdTxt.getText());
+                    InHouse inHousePart = new InHouse(id, name, price, stock, min, max, machineId);
+                    Inventory.updatePart(index, inHousePart);
 
-        } else if (outsourcedRBtn.isSelected()) {
-            companyName = partMachineIdTxt.getText();
-            //Inventory.addPart(new Outsourced(id, name, price, stock, min, max, companyName));
-            Inventory.updatePart(index,selectedPart);
+                } else if (outsourcedRBtn.isSelected()) {
+                    companyName = partMachineIdTxt.getText();
+                    Outsourced outsourcedPart = new Outsourced(id, name, price, stock, min, max, companyName);
+                    Inventory.updatePart(index, outsourcedPart);
+                }
+                stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("/view/main.fxml"));
+                scene.setStyle("-fx-font-family: 'SansSerif';");
+                stage.setScene(new Scene(scene));
+                stage.show();
+            }
+
+        } catch(Exception e) {
+            displayAlert(1);
         }
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/main.fxml"));
-        scene.setStyle("-fx-font-family: 'SansSerif';");
-        stage.setScene(new Scene(scene));
-        stage.show();
 
     }
 
@@ -122,6 +114,63 @@ public class ModifyPartController implements Initializable {
     void onActionOutsourced(ActionEvent event) {
         changeLabel.setText("Company Name");
     }
+
+    private boolean minMaxValid(int min, int max) {
+
+        boolean isValid = true;
+
+        if (min <= 0 || min >= max) {
+            isValid = false;
+            displayAlert(3);
+        }
+
+        return isValid;
+    }
+
+    private boolean stockValid(int min, int max, int stock) {
+
+        boolean isValid = true;
+
+        if (stock < min || stock > max) {
+            isValid = false;
+            displayAlert(4);
+        }
+
+        return isValid;
+    }
+
+    private void displayAlert(int alertType) {
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+
+        switch (alertType) {
+            case 1:
+                alert.setTitle("Error");
+                alert.setHeaderText("Error Modifying Part");
+                alert.setContentText("Form contains blank fields or invalid values.");
+                alert.showAndWait();
+                break;
+            case 2:
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid value for Machine ID");
+                alert.setContentText("Machine ID may only contain numbers.");
+                alert.showAndWait();
+                break;
+            case 3:
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid value for Min");
+                alert.setContentText("Min must be a number greater than 0 and less than Max.");
+                alert.showAndWait();
+                break;
+            case 4:
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid value for Inventory");
+                alert.setContentText("Inventory must be a number equal to or between Min and Max");
+                alert.showAndWait();
+                break;
+        }
+    }
+
 
 
     @Override

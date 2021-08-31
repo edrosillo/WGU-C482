@@ -71,31 +71,35 @@ public class AddPartController implements Initializable {
         @FXML
         void onActionSavePart(ActionEvent event) throws IOException {
 
-            int id = Integer.parseInt(partIdTxt.getText());
-            String name = partNameTxt.getText();
-            double price = Double.parseDouble(partPriceText.getText()) ;
-            int stock = Integer.parseInt(partStockTxt.getText());
-            int min = Integer.parseInt(partMinTxt.getText());
-            int max = Integer.parseInt(partMaxTxt.getText());
-            //int machineId = Integer.parseInt(partMachineIdTxt.getText());
-            int machineId;
-            //String companyName = partMachineIdTxt.getText();
-            String companyName;
+            try {
+                int id = Integer.parseInt(partIdTxt.getText());
+                String name = partNameTxt.getText();
+                double price = Double.parseDouble(partPriceText.getText());
+                int stock = Integer.parseInt(partStockTxt.getText());
+                int min = Integer.parseInt(partMinTxt.getText());
+                int max = Integer.parseInt(partMaxTxt.getText());
+                //int machineId = Integer.parseInt(partMachineIdTxt.getText());
+                int machineId;
+                //String companyName = partMachineIdTxt.getText();
+                String companyName;
 
-            if (inHouseRBtn.isSelected()) {
-                machineId = Integer.parseInt(partMachineIdTxt.getText());
-                Inventory.addPart(new InHouse(id, name, price, stock, min, max, machineId));
+                if (inHouseRBtn.isSelected()) {
+                    machineId = Integer.parseInt(partMachineIdTxt.getText());
+                    Inventory.addPart(new InHouse(id, name, price, stock, min, max, machineId));
 
-            } else if (outsourcedRBtn.isSelected()) {
-                companyName = partMachineIdTxt.getText();
-                Inventory.addPart(new Outsourced(id, name, price, stock, min, max, companyName));
+                } else if (outsourcedRBtn.isSelected()) {
+                    companyName = partMachineIdTxt.getText();
+                    Inventory.addPart(new Outsourced(id, name, price, stock, min, max, companyName));
+                }
+                Inventory.partId = id;
+                stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("/view/main.fxml"));
+                scene.setStyle("-fx-font-family: 'SansSerif';");
+                stage.setScene(new Scene(scene));
+                stage.show();
+            } catch (Exception e) {
+                displayAlert(1);
             }
-            Inventory.partId = id;
-            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-            scene = FXMLLoader.load(getClass().getResource("/view/main.fxml"));
-            scene.setStyle("-fx-font-family: 'SansSerif';");
-            stage.setScene(new Scene(scene));
-            stage.show();
 
         }
 

@@ -180,7 +180,6 @@ public class MainController implements Initializable {
                 partTableView.setItems(parts);
                 queryPartsTF.setText("");
             }
-
     }
 
     @FXML
@@ -194,7 +193,6 @@ public class MainController implements Initializable {
                 productTableView.setItems(products);
                 queryProductsTF.setText("");
             }
-
     }
 
     private void displayAlert(int alertType) {
