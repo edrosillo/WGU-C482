@@ -76,7 +76,6 @@ public class ModifyPartController implements Initializable {
 
         try {
             int index = Inventory.getAllParts().indexOf(selectedPart);
-
             int id = selectedPart.getId();
             String name = partNameTxt.getText();
             double price = Double.parseDouble(partPriceText.getText());
@@ -103,7 +102,6 @@ public class ModifyPartController implements Initializable {
                 stage.setScene(new Scene(scene));
                 stage.show();
             }
-
         } catch(Exception e) {
             displayAlert(1);
         }
@@ -142,6 +140,8 @@ public class ModifyPartController implements Initializable {
     private void displayAlert(int alertType) {
 
         Alert alert = new Alert(Alert.AlertType.ERROR);
+        DialogPane dp = alert.getDialogPane();
+        dp.setStyle("-fx-font-family:sans-serif");
 
         switch (alertType) {
             case 1:
@@ -192,8 +192,8 @@ public class ModifyPartController implements Initializable {
         partNameTxt.setText(selectedPart.getName());
         partStockTxt.setText(String.valueOf(selectedPart.getStock()));
         partPriceText.setText(String.valueOf(selectedPart.getPrice()));
-        partMaxTxt.setText(String.valueOf(selectedPart.getMax()));
         partMinTxt.setText(String.valueOf(selectedPart.getMin()));
+        partMaxTxt.setText(String.valueOf(selectedPart.getMax()));
 
 
     }

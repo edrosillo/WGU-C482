@@ -78,25 +78,25 @@ public class AddPartController implements Initializable {
                 int stock = Integer.parseInt(partStockTxt.getText());
                 int min = Integer.parseInt(partMinTxt.getText());
                 int max = Integer.parseInt(partMaxTxt.getText());
-                //int machineId = Integer.parseInt(partMachineIdTxt.getText());
                 int machineId;
-                //String companyName = partMachineIdTxt.getText();
                 String companyName;
 
-                if (inHouseRBtn.isSelected()) {
-                    machineId = Integer.parseInt(partMachineIdTxt.getText());
-                    Inventory.addPart(new InHouse(id, name, price, stock, min, max, machineId));
+                if (minMaxValid(min, max) && stockValid(min, max, stock)) {
+                    if (inHouseRBtn.isSelected()) {
+                        machineId = Integer.parseInt(partMachineIdTxt.getText());
+                        Inventory.addPart(new InHouse(id, name, price, stock, min, max, machineId));
 
-                } else if (outsourcedRBtn.isSelected()) {
-                    companyName = partMachineIdTxt.getText();
-                    Inventory.addPart(new Outsourced(id, name, price, stock, min, max, companyName));
+                    } else if (outsourcedRBtn.isSelected()) {
+                        companyName = partMachineIdTxt.getText();
+                        Inventory.addPart(new Outsourced(id, name, price, stock, min, max, companyName));
+                    }
+                    Inventory.partId = id;
+                    stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                    scene = FXMLLoader.load(getClass().getResource("/view/main.fxml"));
+                    scene.setStyle("-fx-font-family: 'SansSerif';");
+                    stage.setScene(new Scene(scene));
+                    stage.show();
                 }
-                Inventory.partId = id;
-                stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-                scene = FXMLLoader.load(getClass().getResource("/view/main.fxml"));
-                scene.setStyle("-fx-font-family: 'SansSerif';");
-                stage.setScene(new Scene(scene));
-                stage.show();
             } catch (Exception e) {
                 displayAlert(1);
             }
@@ -138,6 +138,8 @@ public class AddPartController implements Initializable {
     private void displayAlert(int alertType) {
 
         Alert alert = new Alert(Alert.AlertType.ERROR);
+        DialogPane dp = alert.getDialogPane();
+        dp.setStyle("-fx-font-family:sans-serif");
 
         switch (alertType) {
             case 1:

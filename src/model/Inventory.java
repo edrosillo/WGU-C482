@@ -8,6 +8,8 @@ public class Inventory {
 
     public static int productId;
 
+    public static boolean partsFound;
+
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
 
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
@@ -53,6 +55,11 @@ public class Inventory {
                 partSearch.add(part);
             }
         }
+        if (partSearch.isEmpty()){
+            partsFound = false;
+            return allParts;
+        }
+        partsFound = true;
         return partSearch;
     }
 
@@ -81,7 +88,6 @@ public class Inventory {
     }
 
     public static boolean deletePart (Part selectedPart) {
-
         if (allParts.contains(selectedPart)) {
             allParts.remove(selectedPart);
             return true;
@@ -93,7 +99,6 @@ public class Inventory {
     }
 
     public static boolean deleteProduct (Product selectedProduct) {
-
         if (allParts.contains(selectedProduct)) {
             allParts.remove(selectedProduct);
             return true;

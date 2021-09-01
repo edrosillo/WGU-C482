@@ -83,6 +83,8 @@ public class MainController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Alert");
             alert.setContentText("Are you sure you want to delete the selected part?");
+            DialogPane dp = alert.getDialogPane();
+            dp.setStyle("-fx-font-family:sans-serif");
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -103,10 +105,19 @@ public class MainController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Alert");
             alert.setContentText("Are you sure you want to delete the selected product?");
+             DialogPane dp = alert.getDialogPane();
+             dp.setStyle("-fx-font-family:sans-serif");
             Optional<ButtonType> result = alert.showAndWait();
 
          if (result.isPresent() && result.get() == ButtonType.OK) {
-                Inventory.deleteProduct(selectedProduct);
+
+             ObservableList<Part> assocParts = selectedProduct.getAllAssociatedParts();
+
+             if (assocParts.size() >= 1) {
+                 displayAlert(5);
+             } else {
+                 Inventory.deleteProduct(selectedProduct);
+             }
             }
          }
 
@@ -174,11 +185,17 @@ public class MainController implements Initializable {
             try {
                 Part foundPart = Inventory.lookupPart(Integer.parseInt(queryPartsTF.getText()));
                 partTableView.getSelectionModel().select(foundPart);
+                if (foundPart == null) {
+                    displayAlert(1);
+                }
             } catch (Exception e) {
                 String partName = queryPartsTF.getText();
                 ObservableList<Part> parts = Inventory.lookupPart(partName);
                 partTableView.setItems(parts);
                 queryPartsTF.setText("");
+                if (!(Inventory.partsFound)){
+                    displayAlert(1);
+                }
             }
     }
 
@@ -199,6 +216,11 @@ public class MainController implements Initializable {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         Alert alertError = new Alert(Alert.AlertType.ERROR);
+        Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        DialogPane dp = alert.getDialogPane();
+        dp.setStyle("-fx-font-family:sans-serif");
+        DialogPane dp2 = alertError.getDialogPane();
+        dp2.setStyle("-fx-font-family:sans-serif");
 
         switch (alertType) {
             case 1:

@@ -110,30 +110,43 @@ public class ModifyProductController implements Initializable {
     @FXML
     void onActionSave(ActionEvent event) throws IOException {
 
-        int index = Inventory.getAllProducts().indexOf(selectedProduct);
+        try {
 
-        int id = Integer.parseInt(productIdTxt.getText());
-        String name = productNameTxt.getText();
-        double price = Double.parseDouble(productPriceTxt.getText()) ;
-        int stock = Integer.parseInt(productStockTxt.getText());
-        int min = Integer.parseInt(productMinTxt.getText());
-        int max = Integer.parseInt(productMaxTxt.getText());
+            int index = Inventory.getAllProducts().indexOf(selectedProduct);
 
-        selectedProduct.setId(id);
-        selectedProduct.setName(name);
-        selectedProduct.setPrice(price);
-        selectedProduct.setStock(stock);
-        selectedProduct.setPrice(price);
-        selectedProduct.setMin(min);
-        selectedProduct.setMax(max);
+            int id = Integer.parseInt(productIdTxt.getText());
+            String name = productNameTxt.getText();
+            double price = Double.parseDouble(productPriceTxt.getText());
+            int stock = Integer.parseInt(productStockTxt.getText());
+            int min = Integer.parseInt(productMinTxt.getText());
+            int max = Integer.parseInt(productMaxTxt.getText());
 
-        Inventory.updateProduct(index,selectedProduct);
+            if (name.isEmpty()) {
+                displayAlert(7);
+            } else {
+                if (minMaxValid(min, max) && stockValid(min, max, stock)) {
 
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/main.fxml"));
-        scene.setStyle("-fx-font-family: 'SansSerif';");
-        stage.setScene(new Scene(scene));
-        stage.show();
+                    selectedProduct.setId(id);
+                    selectedProduct.setName(name);
+                    selectedProduct.setPrice(price);
+                    selectedProduct.setStock(stock);
+                    selectedProduct.setPrice(price);
+                    selectedProduct.setMin(min);
+                    selectedProduct.setMax(max);
+
+                    Inventory.updateProduct(index, selectedProduct);
+
+                    stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                    scene = FXMLLoader.load(getClass().getResource("/view/main.fxml"));
+                    scene.setStyle("-fx-font-family: 'SansSerif';");
+                    stage.setScene(new Scene(scene));
+                    stage.show();
+                }
+            }
+
+        } catch (Exception e) {
+            displayAlert(1);
+        }
 
     }
 
@@ -142,11 +155,17 @@ public class ModifyProductController implements Initializable {
         try {
             Part foundPart = Inventory.lookupPart(Integer.parseInt(queryPartsTF.getText()));
             partTableView.getSelectionModel().select(foundPart);
+            if (foundPart == null) {
+                displayAlert(1);
+            }
         } catch (Exception e) {
             String partName = queryPartsTF.getText();
             ObservableList<Part> parts = Inventory.lookupPart(partName);
             partTableView.setItems(parts);
             queryPartsTF.setText("");
+            if (!(Inventory.partsFound)){
+                displayAlert(1);
+            }
         }
     }
 
@@ -178,6 +197,10 @@ public class ModifyProductController implements Initializable {
 
         Alert alert = new Alert(Alert.AlertType.ERROR);
         Alert alertInfo = new Alert(Alert.AlertType.INFORMATION);
+        DialogPane dp = alert.getDialogPane();
+        dp.setStyle("-fx-font-family:sans-serif");
+        DialogPane dp2 = alertInfo.getDialogPane();
+        dp2.setStyle("-fx-font-family:sans-serif");
 
         switch (alertType) {
             case 1:
@@ -244,8 +267,8 @@ public class ModifyProductController implements Initializable {
         productNameTxt.setText(selectedProduct.getName());
         productStockTxt.setText(String.valueOf(selectedProduct.getStock()));
         productPriceTxt.setText(String.valueOf(selectedProduct.getPrice()));
-        productMinTxt.setText(String.valueOf(selectedProduct.getMax()));
-        productMaxTxt.setText(String.valueOf(selectedProduct.getMin()));
+        productMinTxt.setText(String.valueOf(selectedProduct.getMin()));
+        productMaxTxt.setText(String.valueOf(selectedProduct.getMax()));
 
 
     }

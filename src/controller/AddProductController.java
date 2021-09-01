@@ -121,7 +121,9 @@ public class AddProductController implements Initializable {
             } else {
                 if (minMaxValid(min, max) && stockValid(min, max, stock)){
 
-                    Inventory.addProduct(new Product(id, name, price, stock, min, max));
+                    Product product = new Product(id, name, price, stock, min, max);
+                    product.getAllAssociatedParts().addAll(assocParts);
+                    Inventory.addProduct(product);
                     Inventory.productId = id;
                     stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
                     scene = FXMLLoader.load(getClass().getResource("/view/main.fxml"));
@@ -142,11 +144,17 @@ public class AddProductController implements Initializable {
         try {
             Part foundPart = Inventory.lookupPart(Integer.parseInt(queryPartsTF.getText()));
             partTableView.getSelectionModel().select(foundPart);
+            if (foundPart == null) {
+                displayAlert(1);
+            }
         } catch (Exception e) {
             String partName = queryPartsTF.getText();
             ObservableList<Part> parts = Inventory.lookupPart(partName);
             partTableView.setItems(parts);
             queryPartsTF.setText("");
+            if (!(Inventory.partsFound)){
+                displayAlert(1);
+            }
         }
     }
 
@@ -178,6 +186,10 @@ public class AddProductController implements Initializable {
 
         Alert alert = new Alert(Alert.AlertType.ERROR);
         Alert alertInfo = new Alert(Alert.AlertType.INFORMATION);
+        DialogPane dp = alert.getDialogPane();
+        dp.setStyle("-fx-font-family:sans-serif");
+        DialogPane dp2 = alertInfo.getDialogPane();
+        dp2.setStyle("-fx-font-family:sans-serif");
 
         switch (alertType) {
             case 1:

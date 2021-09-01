@@ -7,6 +7,15 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.*;
 
+/**
+ * This is the Main Class for an Inventory Management application that is designed to manage
+ * an inventory of parts and products containing of parts.
+ *
+ * A new feature for a future version of this application  would be to control the inventory of parts can as they
+ * are added and removed from products.
+ *
+ */
+
 public class Main extends Application {
 
     @Override
