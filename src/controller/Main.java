@@ -7,16 +7,31 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.*;
 
+
 /**
- * This is the Main Class for an Inventory Management application that is designed to manage
- * an inventory of parts and products containing of parts.
+ * FUTURE ENHANCEMENT
  *
  * A new feature for a future version of this application  would be to control the inventory of parts can as they
  * are added and removed from products.
  *
  */
 
+/**
+ *
+ * This is the Main Class for an Inventory Management application that is designed to manage
+ * an inventory of parts and products containing of parts.
+ *
+ */
+
 public class Main extends Application {
+
+    /**
+     * The start method creates the first screen in the application.
+     * It generates FXML stage and loads the GUI and information of the initial scene.
+     *
+     * @param primaryStage This will be the GUI and information the user will see.
+     *
+     */
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -26,6 +41,13 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 1000, 500));
         primaryStage.show();
     }
+
+    /**
+     * The main method is the entry point to the application. It launches the Java application.
+     * The sample data is contained within the main method so it populates the tables as soon as the program is launched.
+     *
+     * @param args In the case of this application the arguments are all the information that will populate the Parts and Products tables.
+     */
 
     public static void main(String[] args) {
 

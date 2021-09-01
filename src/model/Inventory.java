@@ -99,8 +99,8 @@ public class Inventory {
     }
 
     public static boolean deleteProduct (Product selectedProduct) {
-        if (allParts.contains(selectedProduct)) {
-            allParts.remove(selectedProduct);
+        if (allProducts.contains(selectedProduct)) {
+            allProducts.remove(selectedProduct);
             return true;
         }
         else {
