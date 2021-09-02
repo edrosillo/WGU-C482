@@ -62,7 +62,6 @@ public class Product {
      * The setter for the product id.
      * @param id The id of the product.
      */
-
     public void setId(int id) {
         this.id = id;
     }
@@ -71,7 +70,6 @@ public class Product {
      * The setter for the name of the product.
      * @param name The name of the product.
      */
-
     public void setName(String name) {
         this.name = name;
     }
@@ -80,7 +78,6 @@ public class Product {
      * The setter for the price of the product.
      * @param price The price of the product.
      */
-
     public void setPrice(double price) {
         this.price = price;
     }
@@ -89,7 +86,6 @@ public class Product {
      * The setter for the stock of the product.
      * @param stock The stock of the product.
      */
-
     public void setStock(int stock) {
         this.stock = stock;
     }
@@ -98,7 +94,6 @@ public class Product {
      * The setter for the minimum stock of product.
      * @param min The minimum stock of the product.
      */
-
     public void setMin(int min) {
         this.min = min;
     }
@@ -107,7 +102,6 @@ public class Product {
      * The setter for the maximum stock of the product.
      * @param max The maximum stock of the product.
      */
-
     public void setMax(int max) {
         this.max = max;
     }
@@ -116,7 +110,6 @@ public class Product {
      * The getter for the id of the product.
      * @return id of the product.
      */
-
     public int getId() {
         return id;
     }
@@ -125,7 +118,6 @@ public class Product {
      * The getter for the name of the product.
      * @return name of the product.
      */
-
     public String getName() {
         return name;
     }
@@ -134,7 +126,6 @@ public class Product {
      * The getter for the price of the product.
      * @return price of the product.
      */
-
     public double getPrice() {
         return price;
     }
@@ -143,7 +134,6 @@ public class Product {
      * The getter for the stock of the product.
      * @return stock of the product.
      */
-
     public int getStock() {
         return stock;
     }
@@ -152,7 +142,6 @@ public class Product {
      * The getter for the minimum stock of the product.
      * @return minimum stock of the product.
      */
-
     public int getMin() {
         return min;
     }
@@ -161,7 +150,6 @@ public class Product {
      * The getter for the maximum stock of the product.
      * @return maximum stock of the product.
      */
-
     public int getMax() {
         return max;
     }
@@ -170,7 +158,6 @@ public class Product {
      * This method adds a part to the associated parts list of the product.
      * @param part The part to add.
      */
-
     public void  addAssociatedPart(Part part) {
         associatedParts.add(part);
     }
@@ -180,7 +167,6 @@ public class Product {
      * @param selectedAssociatedPart The associated part to delete
      * @return a boolean indicating status of part deletion
      */
-
     public boolean deleteAssociatedPart(Part selectedAssociatedPart) {
         if (associatedParts.contains(selectedAssociatedPart)) {
             associatedParts.remove(selectedAssociatedPart);
@@ -194,7 +180,6 @@ public class Product {
      * This method gets list of associated of the product.
      * @return a list of parts
      */
-
     public ObservableList<Part> getAllAssociatedParts() {return associatedParts;}
 
 }

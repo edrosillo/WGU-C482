@@ -26,7 +26,6 @@ public class AddProductController implements Initializable {
     /**
      * The stage object that will be used to hold the GUI and data of the new screens.
      */
-
     Stage stage;
 
     /**
@@ -39,122 +38,110 @@ public class AddProductController implements Initializable {
     /**
      * The text field that will be used to search for parts.
      */
-
     @FXML
     private TextField queryPartsTF;
 
     /**
      * The Max Stock product text field.
      */
-
     @FXML
     private TextField productMaxTxt;
 
     /**
      * The ID product text field.
      */
-
     @FXML
     private TextField productIdTxt;
 
     /**
      * The name product text field.
      */
-
     @FXML
     private TextField productNameTxt;
 
     /**
      * The stock product text field.
      */
-
     @FXML
     private TextField productStockTxt;
 
     /**
      * The price product text field.
      */
-
     @FXML
     private TextField productPriceTxt;
 
     /**
      * The Min Stock product text field.
      */
-
     @FXML
     private TextField productMinTxt;
 
     /**
      * The table view of parts.
      */
-
     @FXML
     private TableView<Part> partTableView;
 
     /**
      * The ID column of the parts table.
      */
-
     @FXML
     private TableColumn<Part, Integer> partIdCol;
 
     /**
      * The stock column of the parts table.
      */
-
     @FXML
     private TableColumn<Part, Integer> partStockCol;
 
     /**
      * The price column of the parts table.
      */
-
     @FXML
     private TableColumn<Part, Double> partPriceCol;
 
     /**
      * The Name column of the parts table.
      */
-
     @FXML
     private TableColumn<Part, String> partNameCol;
 
     /**
      * The associated parts table view.
      */
-
     @FXML
     private TableView<Part> assocPartTableView;
 
     /**
      * The part ID column of the associated parts table.
      */
-
     @FXML
     private TableColumn<Part, Integer> assocPartIdCol;
 
     /**
      * The part name column of the associated parts table.
      */
-
     @FXML
     private TableColumn<Part, String> assocPartNameCol;
 
     /**
      * The part stock column of the associated parts table.
      */
-
     @FXML
     private TableColumn<Part, Integer> assocPartStockCol;
 
     /**
      * The part price column of the associated parts table.
      */
-
     @FXML
     private TableColumn<Part, Double> assocPartPriceCol;
 
+    /**
+     * Adds new part from the part table to the associated part table.
+     * Validates that a part is selected.
+     * @param event Add button action.
+     */
     @FXML
     void onActionAddPart(ActionEvent event) {
         Part selectedPart = partTableView.getSelectionModel().getSelectedItem();
@@ -170,8 +157,8 @@ public class AddProductController implements Initializable {
     /**
      * Loads MainController.
      * @param event Cancel button action.
+     * @throws IOException From FXMLLoader.
      */
-
     @FXML
     void onActionDisplayMain(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -181,6 +168,11 @@ public class AddProductController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Removes part from the associated part table.
+     * Validates that a part is selected.
+     * @param event Add button action.
+     */
     @FXML
     void onActionRemovePart(ActionEvent event) {
 
@@ -195,8 +187,8 @@ public class AddProductController implements Initializable {
      * Text fields are validated with error messages displayed preventing empty and/or
      * invalid values.
      * @param event Save button action.
+     * @throws IOException From FXMLLoader.
      */
-
     @FXML
     void onActionSave(ActionEvent event) throws IOException {
 
@@ -237,7 +229,6 @@ public class AddProductController implements Initializable {
      * Parts can be searched for by ID or name.
      * @param event Part search keyboard input.
      */
-
     @FXML
     void searchPartsHandler(ActionEvent event) {
         try {
@@ -263,7 +254,6 @@ public class AddProductController implements Initializable {
      * @param max The maximum value for stock of the part.
      * @return Boolean indicating if min is valid.
      */
-
     private boolean minMaxValid(int min, int max) {
 
         boolean isValid = true;
@@ -283,7 +273,6 @@ public class AddProductController implements Initializable {
      * @param stock The stock level for the part.
      * @return Boolean indicating if stock is valid.
      */
-
     private boolean stockValid(int min, int max, int stock) {
 
         boolean isValid = true;
@@ -355,7 +344,6 @@ public class AddProductController implements Initializable {
      * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
      * @param resourceBundle The resourceBundle is used to localize the root object, or null if the root object was not localized.
      */
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

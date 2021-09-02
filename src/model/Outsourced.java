@@ -1,7 +1,7 @@
 package model;
 
 /**
- * This class models Outsourced parts that extends the Part class.
+ * This class models Outsourced parts that extend the Part class.
  */
 
 public class Outsourced extends Part {

@@ -26,7 +26,7 @@ public class AddPartController implements Initializable {
 
 
     /**
-     * The machine ID/Comapny name label for the part.
+     * The name label for the part that will display whether a Machine ID is being entered or a Company Name.
      */
     public Label changeLabel;
 
@@ -121,6 +121,7 @@ public class AddPartController implements Initializable {
     /**
      * Loads MainController.
      * @param event Cancel button action.
+     * @throws IOException From FXMLLoader.
      */
 
         @FXML
@@ -137,6 +138,7 @@ public class AddPartController implements Initializable {
      * Text fields are validated with error messages displayed preventing empty and/or
      * invalid values.
      * @param event Save button action.
+     * @throws IOException From FXMLLoader.
      */
 
         @FXML

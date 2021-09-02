@@ -1,4 +1,4 @@
-package controller;
+package main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,18 +9,23 @@ import model.*;
 
 
 /**
- * FUTURE ENHANCEMENT
  *
- * A new feature for a future version of this application  would be to control the inventory of parts can as they
- * are added and removed from products.
+ * RUNTIME ERROR
+ * A runtime error occurs if no part is selected before the user clicks the modify button.
+ * This error is caused by a NULL value being passed to the initialize method of the
+ * ModifyPartController or ModifyProductController. A way to prevent this from happening was to implement an Alert pop up message
+ * informing the user that no PART or PRODUCT was selected.
+ *
+ *
+ * FUTURE ENHANCEMENT
+ * A new feature suitable for a future version of this application would be the ability to automatically change the stock number of parts as they
+ * are associated and removed from various products.
  *
  */
 
 /**
- *
- * This is the Main Class for an Inventory Management application that is designed to manage
+ * Main Class for an Inventory Management application that is designed to manage
  * an inventory of parts and products containing of parts.
- *
  */
 
 public class Main extends Application {
@@ -30,7 +35,7 @@ public class Main extends Application {
      * It generates FXML stage and loads the GUI and information of the initial scene.
      *
      * @param primaryStage This will be the GUI and information the user will see.
-     *
+     * @throws Exception From FXMLLoader.
      */
 
     @Override
@@ -43,10 +48,10 @@ public class Main extends Application {
     }
 
     /**
-     * The main method is the entry point to the application. It launches the Java application.
-     * The sample data is contained within the main method so it populates the tables as soon as the program is launched.
+     * The main method is the entry point to the application.
+     * The main method creates sample data and launches the application.
      *
-     * @param args In the case of this application the arguments are all the information that will populate the Parts and Products tables.
+     * @param args
      */
 
     public static void main(String[] args) {

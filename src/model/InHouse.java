@@ -1,7 +1,7 @@
 package model;
 
 /**
- * This class models InHouse parts that extends the Part class.
+ * This class models InHouse Parts that extend the Part class.
  */
 
 public class InHouse extends Part {

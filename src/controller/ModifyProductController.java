@@ -20,20 +20,16 @@ import java.util.ResourceBundle;
 /**
  * The ModifyProductController class provides control logic for the modify product screen of the application.
  */
-
 public class ModifyProductController implements Initializable {
 
     /**
      * The product object selected in the MainController.
      */
-
-
     private Product selectedProduct;
 
     /**
      * The stage object that will be used to hold the GUI and data of the new screens.
      */
-
     Stage stage;
 
     /**
@@ -44,128 +40,115 @@ public class ModifyProductController implements Initializable {
     /**
      * A list that contains all the parts associated with the product.
      */
-
     private ObservableList<Part> assocParts = FXCollections.observableArrayList();
 
     /**
      * The text field that will be used to search for parts.
      */
-
     @FXML
     private TextField queryPartsTF;
 
     /**
      * The Max Stock product text field.
      */
-
     @FXML
     private TextField productMaxTxt;
 
     /**
      * The ID product text field.
      */
-
     @FXML
     private TextField productIdTxt;
 
     /**
      * The name product text field.
      */
-
     @FXML
     private TextField productNameTxt;
 
     /**
      * The stock product text field.
      */
-
     @FXML
     private TextField productStockTxt;
 
     /**
      * The price product text field.
      */
-
     @FXML
     private TextField productPriceTxt;
 
     /**
      * The Min Stock product text field.
      */
-
     @FXML
     private TextField productMinTxt;
 
     /**
      * The table view of parts.
      */
-
     @FXML
     private TableView<Part> partTableView;
 
     /**
      * The ID column of the parts table.
      */
-
     @FXML
     private TableColumn<Part, Integer> partIdCol;
 
     /**
      * The stock column of the parts table.
      */
-
     @FXML
     private TableColumn<Part, Integer> partStockCol;
 
     /**
      * The price column of the parts table.
      */
-
     @FXML
     private TableColumn<Part, Double> partPriceCol;
 
     /**
      * The name column of the parts table.
      */
-
     @FXML
     private TableColumn<Part, String> partNameCol;
 
     /**
      * The associated parts table view.
      */
-
     @FXML
     private TableView<Part> assocPartTableView;
 
     /**
      * The part ID column of the associated parts table.
      */
-
     @FXML
     private TableColumn<Part, Integer> assocPartIdCol;
 
     /**
      * The part name column of the associated parts table.
      */
-
     @FXML
     private TableColumn<Part, String> assocPartNameCol;
 
     /**
      * The part stock column of the associated parts table.
      */
-
     @FXML
     private TableColumn<Part, Integer> assocPartStockCol;
 
     /**
      * The part price column of the associated parts table.
      */
-
     @FXML
     private TableColumn<Part, Double> assocPartPriceCol;
 
+    /**
+     * Adds new part from the part table to the associated part table.
+     * Validates that a part is selected.
+     * @param event Add button action.
+     */
     @FXML
     void onActionAddPart(ActionEvent event) {
         Part selectedPart = partTableView.getSelectionModel().getSelectedItem();
@@ -182,7 +165,6 @@ public class ModifyProductController implements Initializable {
      * Loads MainController.
      * @param event Cancel button action.
      */
-
     @FXML
     void onActionDisplayMain(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -192,6 +174,12 @@ public class ModifyProductController implements Initializable {
         stage.show();
     }
 
+
+    /**
+     * Removes part from the associated parts table.
+     * Validates that a part is selected.
+     * @param event Add button action.
+     */
     @FXML
     void onActionRemovePart(ActionEvent event) {
 
@@ -208,7 +196,6 @@ public class ModifyProductController implements Initializable {
      * invalid values.
      * @param event Save button action.
      */
-
     @FXML
     void onActionSave(ActionEvent event) throws IOException {
 
@@ -258,7 +245,6 @@ public class ModifyProductController implements Initializable {
      * Parts can be searched for by ID or name.
      * @param event Part search keyboard input.
      */
-
     @FXML
     void searchPartsHandler(ActionEvent event) {
         try {
@@ -284,7 +270,6 @@ public class ModifyProductController implements Initializable {
      * @param max The maximum value for stock of the part.
      * @return Boolean indicating if min is valid.
      */
-
     private boolean minMaxValid(int min, int max) {
 
         boolean isValid = true;
@@ -304,7 +289,6 @@ public class ModifyProductController implements Initializable {
      * @param stock The stock level for the part.
      * @return Boolean indicating if stock is valid.
      */
-
     private boolean stockValid(int min, int max, int stock) {
 
         boolean isValid = true;
@@ -321,7 +305,6 @@ public class ModifyProductController implements Initializable {
      * This switch statement is used to displays a variety of alert and error messages.
      * @param alertType Alert selects a message based on case number.
      */
-
     private void displayAlert(int alertType) {
 
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -376,7 +359,6 @@ public class ModifyProductController implements Initializable {
      * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
      * @param resourceBundle The resourceBundle is used to localize the root object, or null if the root object was not localized.
      */
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

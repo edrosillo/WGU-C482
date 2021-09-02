@@ -21,17 +21,6 @@ import java.util.ResourceBundle;
 
 
 /**
- *  RUNTIME ERROR
- *
- *  A runtime error occurs if no part is selected before the user selects the modify button.
- *  The error is triggered because a NULL value being passed to the initialize method of the
- *  ModifyPartController or ModifyProductController. A way to prevent this from happening was to implement an Alert pop up message
- *  informing the user that no PART or PRODUCT was selected.
- *
- */
-
-
-/**
  * The MainController class provides control of the logic of the main screen of this Inventory application.
  *
  */
@@ -234,6 +223,7 @@ public class MainController implements Initializable {
     /**
      * This method Loads the AddPart section of the application.
      * @param event Clicking the Add Button beneath the Parts table.
+     * @throws IOException From FXMLLoader.
      */
 
     @FXML
@@ -248,6 +238,7 @@ public class MainController implements Initializable {
     /**
      * This method Loads the AddProduct section of the application.
      * @param event Clicking the Add Button beneath the Products table.
+     * @throws IOException From FXMLLoader.
      */
 
     @FXML
@@ -262,6 +253,7 @@ public class MainController implements Initializable {
     /**
      * This method loads the ModifyPart section of the application.
      * @param event Clicking the Modify Button beneath the Parts table.
+     * @throws IOException From FXMLLoader.
      */
 
     @FXML
@@ -284,6 +276,7 @@ public class MainController implements Initializable {
     /**
      * This method Loads the ModifyProduct section of the application.
      * @param event Clicking the Modify Button beneath the Products table.
+     * @throws IOException From FXMLLoader.
      */
 
     @FXML
