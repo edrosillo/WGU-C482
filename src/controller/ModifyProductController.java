@@ -353,8 +353,8 @@ public class ModifyProductController implements Initializable {
     }
 
     /**
-     * Initializes the ModifyProductController carries over the information of the Product to be modified
-     * and populates table views for the Parts table and the Associated Parts.
+     * Initializes the ModifyProductController carries over the information of the Product to be modified.
+     * Populates table views for the Parts table and the Associated Parts.
      *
      * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
      * @param resourceBundle The resourceBundle is used to localize the root object, or null if the root object was not localized.

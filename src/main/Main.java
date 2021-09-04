@@ -8,24 +8,23 @@ import javafx.stage.Stage;
 import model.*;
 
 
-/**
- *
- * RUNTIME ERROR
- * A runtime error occurs if no part is selected before the user clicks the modify button.
- * This error is caused by a NULL value being passed to the initialize method of the
- * ModifyPartController or ModifyProductController. A way to prevent this from happening was to implement an Alert pop up message
- * informing the user that no PART or PRODUCT was selected.
- *
- *
- * FUTURE ENHANCEMENT
- * A new feature suitable for a future version of this application would be the ability to automatically change the stock number of parts as they
- * are associated and removed from various products.
- *
- */
 
 /**
  * Main Class for an Inventory Management application that is designed to manage
  * an inventory of parts and products containing of parts.
+ *
+ * RUNTIME ERROR.
+ * A runtime error occurs if no part is selected before the user clicks the modify button.
+ * This error is caused by a NULL value being passed to the initialize method of the
+ * ModifyPartController or ModifyProductController. A way to prevent this from happening was to implement an Alert pop up message
+ * informing the user that no PART or PRODUCT was selected. This measure was applied in the partModifyAction() method of the
+ * MainController class.
+ *
+ *
+ * FUTURE ENHANCEMENT.
+ * A new feature suitable for a future version of this application would be the ability to automatically change the stock number of parts as they
+ * are associated and removed from various products.
+ *
  */
 
 public class Main extends Application {

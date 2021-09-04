@@ -20,19 +20,16 @@ import java.util.ResourceBundle;
 /**
  * The ModifyPartController class provides control logic for the modify part screen of the application.
  */
-
 public class ModifyPartController implements Initializable {
 
     /**
      * The part object selected in the MainController.
      */
-
     private Part selectedPart;
 
     /**
-     * The machine ID/Comapny name label for the part.
+     * The name label for the part that will display whether a Machine ID is being entered or a Company Name.
      */
-
     public Label changeLabel;
 
     /**
@@ -48,7 +45,6 @@ public class ModifyPartController implements Initializable {
     /**
      * The stage object that will be used to hold the GUI and data of the new screens.
      */
-
     Stage stage;
 
     /**
@@ -59,65 +55,55 @@ public class ModifyPartController implements Initializable {
     /**
      * The toggle group for the radio buttons.
      */
-
     @FXML
     private ToggleGroup partTG;
 
     /**
      * The part max stock text field.
      */
-
     @FXML
     private TextField partMaxTxt;
 
     /**
      * The part ID text field.
      */
-
     @FXML
     private TextField partIdTxt;
 
     /**
      * The part name text field.
      */
-
     @FXML
     private TextField partNameTxt;
 
     /**
      * The part stock text field.
      */
-
     @FXML
     private TextField partStockTxt;
 
     /**
      * The part price text field.
      */
-
     @FXML
     private TextField partPriceText;
 
     /**
      * The part min stock text field.
      */
-
     @FXML
     private TextField partMinTxt;
 
     /**
      * The part Machine ID/Company Name text field.
      */
-
     @FXML
     private TextField partMachineIdTxt;
-
 
     /**
      * Sets machine ID/Company Name label to "Machine ID".
      * @param event In-house Radio button action.
      */
-
     @FXML
     void onActionInHouse(ActionEvent event) {
         changeLabel.setText("Machine ID");
@@ -126,8 +112,8 @@ public class ModifyPartController implements Initializable {
     /**
      * Loads MainController.
      * @param event Cancel button action.
+     * @throws IOException From FXMLLoader.
      */
-
     @FXML
     void onActionDisplayMain(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -142,8 +128,8 @@ public class ModifyPartController implements Initializable {
      * Text fields are validated with error messages displayed preventing empty and/or
      * invalid values.
      * @param event Save button action.
+     * @throws IOException From FXMLLoader.
      */
-
     @FXML
     void onActionSavePart(ActionEvent event) throws IOException {
 
@@ -185,7 +171,6 @@ public class ModifyPartController implements Initializable {
      * Sets machine ID/Company Name label to "Machine ID".
      * @param event Outsourced Radio button action.
      */
-
     @FXML
     void onActionOutsourced(ActionEvent event) {
         changeLabel.setText("Company Name");
@@ -197,7 +182,6 @@ public class ModifyPartController implements Initializable {
      * @param max The maximum value for stock of the part.
      * @return Boolean indicating if min is valid.
      */
-
     private boolean minMaxValid(int min, int max) {
 
         boolean isValid = true;
@@ -217,7 +201,6 @@ public class ModifyPartController implements Initializable {
      * @param stock The stock level for the part.
      * @return Boolean indicating if stock is valid.
      */
-
     private boolean stockValid(int min, int max, int stock) {
 
         boolean isValid = true;
@@ -275,8 +258,6 @@ public class ModifyPartController implements Initializable {
      * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
      * @param resourceBundle The resourceBundle is used to localize the root object, or null if the root object was not localized.
      */
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
